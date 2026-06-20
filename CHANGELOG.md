@@ -11,6 +11,9 @@
   `kiro.jpg`, `.gitignore`.
 - Empty payload directory `etc/skel/.config/` created as a placeholder for the
   Plasma config files still to be added.
+- Added `capture-plasma-config.sh` — a maintainer helper (not shipped) that
+  snapshots `~/.config/*rc` before/after a System Settings session and prints
+  exactly which file/group/key changed, so only those keys get baked into skel.
 - Git initialised with the kirodubes SSH remote; repo created on GitHub.
 
 ### Technical Details
