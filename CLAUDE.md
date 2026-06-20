@@ -9,11 +9,11 @@ Kiro's Plasma edition.
 ## Current state
 
 Created 2026-06-20. Standard Kiro bash scaffold (`up.sh`, `setup.sh`) plus the
-three required markdown files. `etc/xdg/` ships four **minimal** behavioural-default
+three required markdown files. `etc/xdg/` ships five **minimal** behavioural-default
 files, captured live from a Plasma box with `capture-plasma-config.sh`:
 `kscreenlockerrc` (lock disabled), `ksmserverrc` (no logout confirm + empty
 session), `kwinrc` (bottom-left hot corner → Show Desktop), `powerdevilrc`
-(display/suspend timeouts). Theme/colour-scheme config is intentionally out of
+(display/suspend timeouts), `kcminputrc` (NumLock on at login). Theme/colour-scheme config is intentionally out of
 scope (different project). Each file carries only the changed keys so all other
 Plasma defaults still fall back to KDE's own.
 
