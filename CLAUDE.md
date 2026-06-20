@@ -42,10 +42,15 @@ does **not** reliably cover global shortcuts — that is why the sibling
 
 ## Next steps
 
-- Add the build recipe under the matching `~/KIRO-PKG-BUILD-*` parent so it ships
-  a `kiro-plasma-system-settings` package (copies `etc/` into the package).
 - Capture more behavioural defaults as they surface (re-run
   `capture-plasma-config.sh` snapshot → change → diff).
+
+## Packaging
+
+The build recipe lives at
+[`~/KIRO-PKG-BUILD-APPS/kiro-plasma-system-settings/`](/home/erik/KIRO-PKG-BUILD-APPS/kiro-plasma-system-settings/PKGBUILD)
+— git+ source, ships `etc/` (i.e. `/etc/xdg/*`) into the package, license under
+`/usr/share/kiro/licenses/`. Built into `nemesis_repo` by Erik's build flow.
 
 Open work for the whole ecosystem lives in
 [HQ/MASTER_TODO.md](/home/erik/Insync/Kiro/Kiro-HQ/MASTER_TODO.md) — there is no
