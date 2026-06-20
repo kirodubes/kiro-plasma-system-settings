@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026.06.20 (delivery → /etc/xdg)
+
+### What Changed
+- Moved the payload from `etc/skel/.config/` to `etc/xdg/`. Skel only seeds
+  newly-created accounts and risks file-ownership conflicts; `/etc/xdg/` is KDE's
+  XDG cascade default layer — applies to **all** users, is never overwritten
+  (the user's `~/.config` always wins), and is cleanly revertable on uninstall.
+- Verified on a Plasma 6 box that all four files are honored by the cascade
+  (`kreadconfig6` sentinel read-through test — all PASS) before switching.
+- README/CLAUDE updated: install is now `sudo cp -rT etc /etc` (lands in
+  `/etc/xdg/`); no per-home copying needed.
+
+### Files Modified
+- etc/skel/.config/{kscreenlockerrc,ksmserverrc,kwinrc,powerdevilrc} → etc/xdg/ (moved)
+- README.md, CLAUDE.md (delivery model rewritten)
+
 ## 2026.06.20 (payload)
 
 ### What Changed

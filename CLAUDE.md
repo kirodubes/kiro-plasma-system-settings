@@ -9,13 +9,24 @@ Kiro's Plasma edition.
 ## Current state
 
 Created 2026-06-20. Standard Kiro bash scaffold (`up.sh`, `setup.sh`) plus the
-three required markdown files. `etc/skel/.config/` ships four **minimal**
-behavioural-default files, captured live from a Plasma box with
-`capture-plasma-config.sh`: `kscreenlockerrc` (lock disabled), `ksmserverrc`
-(no logout confirm + empty session), `kwinrc` (bottom-left hot corner → Show
-Desktop), `powerdevilrc` (display/suspend timeouts). Theme/colour-scheme config
-is intentionally out of scope (different project). Each file carries only the
-changed keys so all other Plasma defaults still fall back to KDE's own.
+three required markdown files. `etc/xdg/` ships four **minimal** behavioural-default
+files, captured live from a Plasma box with `capture-plasma-config.sh`:
+`kscreenlockerrc` (lock disabled), `ksmserverrc` (no logout confirm + empty
+session), `kwinrc` (bottom-left hot corner → Show Desktop), `powerdevilrc`
+(display/suspend timeouts). Theme/colour-scheme config is intentionally out of
+scope (different project). Each file carries only the changed keys so all other
+Plasma defaults still fall back to KDE's own.
+
+### Why `/etc/xdg/`, not `/etc/skel/.config/`
+
+`/etc/xdg/<file>` is KDE's XDG **cascade** default layer — read *beneath* each
+user's `~/.config/`. Chosen over skel because it applies to **all** users (not
+just freshly created accounts), is **never** overwritten (the user's own change
+saves to their home and always wins), and is cleanly revertable on uninstall.
+Verified on a Plasma 6 box (2026-06-20) that all four files are honored by the
+cascade via `kreadconfig6` (sentinel-group read-through test). Note: the cascade
+does **not** reliably cover global shortcuts — that is why the sibling
+`kiro-plasma-keybindings` still seeds its `kglobalshortcutsrc` via `/etc/skel`.
 
 ## Patterns & decisions
 

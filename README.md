@@ -12,9 +12,17 @@ and [kiro-plasma-servicemenus](https://github.com/kirodubes/kiro-plasma-servicem
 
 ## What's in this repo
 
-- `etc/skel/.config/` — Plasma configuration files (`kdeglobals`, `kwinrc`,
-  `plasmarc`, KCM defaults, …) that land in a new user's `~/.config/` via
-  `/etc/skel/`. Currently a scaffold — drop the shipped config files in here.
+- `etc/xdg/` — Plasma configuration files shipped as **system-wide XDG defaults**.
+  KDE reads `/etc/xdg/<file>` as a lower-priority layer *beneath* each user's
+  `~/.config/`, so these defaults apply to **every** user (existing and new),
+  are **never** written over (a user's own change is saved to their home and
+  always wins), and are cleanly removed when the package is uninstalled.
+  - `kwinrc` — bottom-left hot corner → Show Desktop.
+  - `kscreenlockerrc` — screen lock disabled.
+  - `ksmserverrc` — no logout confirmation; start each session clean.
+  - `powerdevilrc` — display/suspend idle timeouts (AC profile).
+- `capture-plasma-config.sh` — maintainer helper (not shipped) to capture more
+  defaults: snapshot `~/.config`, change settings, diff for the exact keys.
 - `setup.sh`, `up.sh` — standard Kiro bash scaffold (git identity + sync).
 
 ## Installation
@@ -37,17 +45,14 @@ sudo pacman -S kiro-plasma-system-settings
 ```bash
 git clone https://github.com/kirodubes/kiro-plasma-system-settings.git
 cd kiro-plasma-system-settings
-sudo cp -rT etc/skel /etc/skel
+sudo cp -rT etc /etc
 ```
 
-Existing users can copy the defaults straight into their own home:
-
-```bash
-cp -rT /etc/skel ~/
-```
-
-Log out and back in (or restart Plasma) for the new System Settings defaults to
-take effect.
+The files land in `/etc/xdg/`. Because that is the XDG default layer, the
+settings apply to every user automatically — no copying into individual home
+directories. Log out and back in (or restart Plasma) for them to take effect.
+To remove them, delete the shipped files from `/etc/xdg/` (or uninstall the
+package); each user's own customisations in `~/.config/` are untouched.
 
 ## Websites
 
