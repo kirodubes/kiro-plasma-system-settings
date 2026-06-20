@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026.06.20 (kwinrc moved out)
+
+### What Changed
+- Removed `etc/xdg/kwinrc` (the `[ElectricBorders] BottomLeft=ShowDesktop` key). All
+  KWin config now lives in `kiro-plasma-window-management`, so only one package owns
+  `/etc/xdg/kwinrc` (avoids a pacman file conflict). This package now ships four files.
+
+### Files Modified
+- etc/xdg/kwinrc (removed → moved to kiro-plasma-window-management)
+- CLAUDE.md (five → four files; kwinrc relocation noted)
+
+## 2026.06.20 (NumLock on at login)
+
+### What Changed
+- Added `etc/xdg/kcminputrc` so NumLock is turned **on** at login for all users.
+  Captured live from riker (`~/.config/kcminputrc` → `[Keyboard] NumLock=0`,
+  where `0` = turn on). Minimal file — only the changed key.
+
+### Files Modified
+- etc/xdg/kcminputrc (new)
+- CLAUDE.md (file count four → five; kcminputrc noted)
+
 ## 2026.06.20 (delivery → /etc/xdg)
 
 ### What Changed
