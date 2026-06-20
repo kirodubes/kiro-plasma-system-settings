@@ -1,5 +1,29 @@
 # Changelog
 
+## 2026.06.20 (payload)
+
+### What Changed
+- First real payload baked into `etc/skel/.config/` — captured live from a Plasma
+  box via `capture-plasma-config.sh` (snapshot → change settings → diff), keeping
+  only the non-theme behavioural keys. Theme/colour-scheme changes were
+  deliberately excluded (different project).
+- Each file is **minimal** — only the changed keys, so every other Plasma default
+  still falls back to KDE's own.
+
+### Settings shipped
+- `kscreenlockerrc` — screen lock disabled (`Autolock`/`LockOnResume`=false, `Timeout`=0).
+- `ksmserverrc` — `confirmLogout`=false, `loginMode`=emptySession (clean session each login).
+- `kwinrc` — bottom-left hot corner → Show Desktop (`[ElectricBorders] BottomLeft=ShowDesktop`).
+- `powerdevilrc` — display off at 15 min, suspend at 30 min, `PowerButtonAction`=8 (AC profile).
+
+### Deliberately not shipped
+- `krdpserverrc` — per-machine RDP cert paths with a hardcoded home path (not portable).
+- `kglobalshortcutsrc` — only a KDE-rewritten friendly-name label, no real key change.
+
+### Files Modified
+- etc/skel/.config/{kscreenlockerrc,ksmserverrc,kwinrc,powerdevilrc} (created)
+- etc/skel/.config/.gitkeep (removed — real payload now present)
+
 ## 2026.06.20
 
 ### What Changed

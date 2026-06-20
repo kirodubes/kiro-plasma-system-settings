@@ -8,10 +8,14 @@ Kiro's Plasma edition.
 
 ## Current state
 
-Scaffold created 2026-06-20. Standard Kiro bash scaffold (`up.sh`, `setup.sh`)
-plus the three required markdown files. The payload directory
-`etc/skel/.config/` is an empty placeholder — the actual Plasma config files
-(`kdeglobals`, `kwinrc`, `plasmarc`, KCM defaults, …) are still to be added.
+Created 2026-06-20. Standard Kiro bash scaffold (`up.sh`, `setup.sh`) plus the
+three required markdown files. `etc/skel/.config/` ships four **minimal**
+behavioural-default files, captured live from a Plasma box with
+`capture-plasma-config.sh`: `kscreenlockerrc` (lock disabled), `ksmserverrc`
+(no logout confirm + empty session), `kwinrc` (bottom-left hot corner → Show
+Desktop), `powerdevilrc` (display/suspend timeouts). Theme/colour-scheme config
+is intentionally out of scope (different project). Each file carries only the
+changed keys so all other Plasma defaults still fall back to KDE's own.
 
 ## Patterns & decisions
 
@@ -27,9 +31,10 @@ plus the three required markdown files. The payload directory
 
 ## Next steps
 
-- Populate `etc/skel/.config/` with the real Plasma System Settings defaults.
-- Add the build recipe under the matching `~/KIRO-PKG-BUILD-*` parent once the
-  package is ready.
+- Add the build recipe under the matching `~/KIRO-PKG-BUILD-*` parent so it ships
+  a `kiro-plasma-system-settings` package (copies `etc/` into the package).
+- Capture more behavioural defaults as they surface (re-run
+  `capture-plasma-config.sh` snapshot → change → diff).
 
 Open work for the whole ecosystem lives in
 [HQ/MASTER_TODO.md](/home/erik/Insync/Kiro/Kiro-HQ/MASTER_TODO.md) — there is no
