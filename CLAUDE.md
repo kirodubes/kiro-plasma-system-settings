@@ -13,9 +13,18 @@ three required markdown files. `etc/xdg/` ships four **minimal** behavioural-def
 files, captured live from a Plasma box with `capture-plasma-config.sh`:
 `kscreenlockerrc` (lock disabled), `ksmserverrc` (no logout confirm + empty
 session), `powerdevilrc` (display/suspend timeouts), `kcminputrc` (NumLock on at
-login). Theme/colour-scheme config is intentionally out of scope (different
-project). Each file carries only the changed keys so all other Plasma defaults
+login). Each file carries only the changed keys so all other Plasma defaults
 still fall back to KDE's own.
+
+**Default theme/colour selector (2026-06-23):** this package now also owns
+`etc/xdg/kdeglobals`, the single system-wide default-theme selector
+(`[KDE]LookAndFeelPackage=Kiro-Nordic` + `[General]ColorScheme=Kiro-Nordic` + the
+full Nordic `[Colors:*]`). It must live in exactly one always-installed package
+because KIB installs **all** theme packages together — two themes shipping
+`/etc/xdg/kdeglobals` would be a pacman file conflict. Previously
+`kiro-plasma-sweet` owned it (de-facto default = Sweet); it was moved here and
+removed from Sweet + Nord. `depends=('kiro-plasma-nord')` because the selector
+points at that theme. Change the default theme by editing this one file.
 
 **`kwinrc` is NOT here** — all KWin config (including the `[ElectricBorders]` key
 that used to live here) was moved to `kiro-plasma-window-management` (2026-06-20) so

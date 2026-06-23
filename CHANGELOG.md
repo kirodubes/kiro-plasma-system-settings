@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026.06.23 — Own the default theme/colour selector (`/etc/xdg/kdeglobals`)
+
+### What Changed
+- This package now ships **`etc/xdg/kdeglobals`**, the single system-wide default-theme
+  selector: `[KDE]LookAndFeelPackage=Kiro-Nordic` + `[General]ColorScheme=Kiro-Nordic` plus the
+  full Nordic `[Colors:*]` sections. So a fresh Kiro Plasma install boots with the **Kiro-Nordic**
+  global theme and colours by default.
+- Centralising it here is deliberate: KIB installs **all** theme packages onto one system, so
+  the default selector cannot live in a theme package — two themes shipping `/etc/xdg/kdeglobals`
+  would be a pacman file conflict. Previously `kiro-plasma-sweet` owned this file (making Sweet
+  the de-facto default); that file is being removed from Sweet (and from Nord) so this package is
+  the sole owner. Each theme package now ships only its uniquely-named assets.
+- Added `depends=('kiro-plasma-nord')` since the selector points at the Kiro-Nordic theme/scheme.
+
+### Technical Details
+- Plasma's Global-Theme apply does not apply a look-and-feel's colour scheme (colours are treated
+  as a user personalisation), so the colours must be seeded as a cascade default — this file is
+  read beneath `~/.config` and applies to every user incl. the live-ISO user. Changing the default
+  theme later is now a one-file edit here.
+- Scope note: theme/colour config was previously out of scope for this package; that changed with
+  this commit by design (single-owner requirement under KIB).
+
 ## 2026.06.20 (kwinrc moved out)
 
 ### What Changed
