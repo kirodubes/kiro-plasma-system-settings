@@ -1,5 +1,24 @@
 # Changelog
 
+## 2026.06.23 (later) — Switch the default to `/etc/skel/.config/kdeglobals` (xdg cascade doesn't apply colours)
+
+### What Changed
+- Replaced `etc/xdg/kdeglobals` with **`etc/skel/.config/kdeglobals`**. Verified on a live VM:
+  the `/etc/xdg` cascade is **not** honoured by the running Plasma session/apps for the colour
+  scheme — `kreadconfig6` reads it, but Dolphin/QWidget apps render Breeze regardless. Colours
+  only take effect when they live in the user's own `~/.config/kdeglobals`, which `/etc/skel`
+  seeds for every new account (installed + live-ISO user).
+- The shipped file is the **captured Kiro-Nordic default** dialed in on the test box: light app
+  colours (Breeze-style, white View) + `widgetStyle=Breeze` + `LookAndFeelPackage=Kiro-Nordic`
+  (dark shell / panel / Aurorae titlebar). Net look: light apps, dark Kiro-Nordic chrome.
+- `depends=('kiro-plasma-nord')` retained (the default references the Kiro-Nordic look-and-feel).
+
+### Technical Details
+- This supersedes the earlier same-day `/etc/xdg/kdeglobals` entry below — that approach was
+  config-reader-correct but did not actually paint apps. `/etc/skel` is the working delivery.
+- GTK defaults are intentionally NOT here (handled separately via ATT). Window decoration
+  (kwinrc) stays with `kiro-plasma-window-management`.
+
 ## 2026.06.23 — Own the default theme/colour selector (`/etc/xdg/kdeglobals`)
 
 ### What Changed
