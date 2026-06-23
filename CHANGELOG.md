@@ -1,5 +1,21 @@
 # Changelog
 
+## 2026.06.23 (panel) — Seed the default panel via `/etc/skel`
+
+### What Changed
+- Added **`etc/skel/.config/plasma-org.kde.plasma.desktop-appletsrc`** — the default Kiro panel
+  (Kickoff, taskbar, full system tray, clock), captured from the test box. Kiro previously had
+  no custom panel (it used Plasma's stock default), so this gives it a controlled default.
+- Notably enables **Kickoff `switchCategoryOnHover=true`** by default (switch sidebar categories
+  on hover). This is a default — users can change it.
+- Scrubbed the machine-specific desktop `activityId` UUID to empty so it doesn't reference a
+  non-existent activity on a fresh machine; no absolute paths remain.
+
+### Technical Details
+- An applet config like `switchCategoryOnHover` can't be shipped in isolation — it lives inside
+  the panel's appletsrc, so the whole panel is seeded. `/etc/skel` (not `/etc/xdg`) for the same
+  reason as kdeglobals: the live session reads applet config from the user's own `~/.config`.
+
 ## 2026.06.23 (later) — Switch the default to `/etc/skel/.config/kdeglobals` (xdg cascade doesn't apply colours)
 
 ### What Changed
