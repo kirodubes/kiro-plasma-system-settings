@@ -1,5 +1,28 @@
 # Changelog
 
+## 2026.06.24 — Make Plasma Wayland follow the installer keyboard layout (AZERTY fix, part 2/2)
+
+### What Changed
+- Added **`etc/skel/.config/kwinrc`** with `[Wayland] FollowLocale1=true`. Kiro Plasma is a
+  **Wayland-only** edition (no xsession ships), and on Wayland KWin manages the keyboard itself
+  and ignores `/etc/X11/xorg.conf.d/00-keyboard.conf`. `FollowLocale1=true` makes KWin take its
+  layout from the systemd `locale1` service. Verified on a live VM: with `locale1` set and this
+  key in the user's `kwinrc`, a fresh login comes up in the installer-chosen layout (Belgian/AZERTY).
+
+### Technical Details
+- This is **only half** the fix. The other half lives in `kiro-calamares-config-next`'s
+  `kiro_final` module, which now writes `XKBLAYOUT=` into the target's `/etc/vconsole.conf` —
+  without that, `locale1` reports X11 Layout `unset` and this `FollowLocale1` follower falls back
+  to `us`. Both pieces are required; ship them together.
+- Shipped via **`/etc/skel`**, not `/etc/xdg`, for the same reason as `kdeglobals` — the live
+  session does not honour `/etc/xdg/kwinrc` for this; the key must be in the user's own
+  `~/.config/kwinrc`. `kwinrc` therefore now appears in two packages by path:
+  `/etc/xdg/kwinrc` (kiro-plasma-window-management) and `/etc/skel/.config/kwinrc` (here) —
+  no file conflict, layers merge per-key.
+
+### Files Modified
+- `etc/skel/.config/kwinrc` (new)
+
 ## 2026.06.23 (panel) — Seed the default panel via `/etc/skel`
 
 ### What Changed

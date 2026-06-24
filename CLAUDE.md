@@ -29,9 +29,17 @@ because KIB installs all theme packages together. `depends=('kiro-plasma-nord')`
 in on a test box, capture `~/.config/kdeglobals`, drop it here. GTK is handled by
 ATT; window decoration by `kiro-plasma-window-management`.
 
-**`kwinrc` is NOT here** — all KWin config (including the `[ElectricBorders]` key
-that used to live here) was moved to `kiro-plasma-window-management` (2026-06-20) so
-only one package owns `/etc/xdg/kwinrc`.
+**`/etc/xdg/kwinrc` is NOT here** — all behavioural KWin config (including the
+`[ElectricBorders]` key that used to live here) was moved to
+`kiro-plasma-window-management` (2026-06-20) so only one package owns
+`/etc/xdg/kwinrc`. **Exception (2026-06-24):** this package ships
+`etc/skel/.config/kwinrc` with `[Wayland] FollowLocale1=true` — a *different path*
+(skel, not xdg), no file conflict. Kiro Plasma is Wayland-only; this makes KWin
+follow the installer-chosen keyboard layout (otherwise it falls back to `us`). It
+lives here, not in window-management, because — like `kdeglobals` — the live session
+does not honour `/etc/xdg/kwinrc` for this; the key must be in the user's own
+`~/.config/kwinrc`, which skel seeds. **Paired with** the `XKBLAYOUT=` write in
+`kiro-calamares-config(-next)`'s `kiro_final` module — both halves are required.
 
 ### Why `/etc/xdg/`, not `/etc/skel/.config/`
 
