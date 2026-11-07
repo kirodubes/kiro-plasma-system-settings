@@ -9,11 +9,11 @@ Kiro's Plasma edition.
 ## Current state
 
 Created 2026-06-20. Standard Kiro bash scaffold (`up.sh`, `setup.sh`) plus the
-three required markdown files. `etc/xdg/` ships four **minimal** behavioural-default
+three required markdown files. `etc/xdg/` ships five **minimal** behavioural-default
 files, captured live from a Plasma box with `capture-plasma-config.sh`:
 `kscreenlockerrc` (lock disabled), `ksmserverrc` (no logout confirm + empty
 session), `powerdevilrc` (display/suspend timeouts), `kcminputrc` (NumLock on at
-login). Each file carries only the changed keys so all other Plasma defaults
+login), `kdeglobals` (accent colour from wallpaper, 2026-11-07). Each file carries only the changed keys so all other Plasma defaults
 still fall back to KDE's own.
 
 **Default theme (2026-06-23):** this package owns
@@ -28,6 +28,15 @@ because KIB installs all theme packages together. `depends=('kiro-plasma-nord')`
 (the default references that look-and-feel). To change the default look: dial it
 in on a test box, capture `~/.config/kdeglobals`, drop it here. GTK is handled by
 ATT; window decoration by `kiro-plasma-window-management`.
+
+**Accent from wallpaper (2026-11-07):** `etc/xdg/kdeglobals` carries only
+`[General] accentColorFromWallpaper=true`. Unlike the colour scheme, this key IS honoured from
+the cascade — verified on a test box (key absent from `~/.config/kdeglobals`, plasmashell
+restarted, each wallpaper change recomputed `AccentColor`). Surfn-Kiro folder icons use
+`ColorScheme-Accent`, so Dolphin folders now follow the wallpaper (Variety Super+Alt+N).
+Testing trap: `kwriteconfig6 --delete` writes a `key[$d]` marker that masks the cascade —
+remove the line with sed instead. Both `/etc/xdg/kdeglobals` and `/etc/skel/.config/kdeglobals`
+live here — different paths, no file conflict.
 
 **`/etc/xdg/kwinrc` is NOT here** — all behavioural KWin config (including the
 `[ElectricBorders]` key that used to live here) was moved to

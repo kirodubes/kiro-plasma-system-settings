@@ -1,5 +1,26 @@
 # Changelog
 
+## 2026.11.07 — Accent colour follows the wallpaper (Dolphin folders recolour)
+
+### What Changed
+- Added **`etc/xdg/kdeglobals`** with `[General] accentColorFromWallpaper=true` — the System Settings
+  "Accent color: From current wallpaper" option, on by default. The Surfn-Kiro folder icons are drawn with
+  `ColorScheme-Accent`, so with this on, Dolphin's folders change colour with every wallpaper change
+  (Variety Super+Alt+N). Before, the accent was the fixed colour-scheme highlight and folders never changed.
+
+### Technical Details
+- Key captured with `capture-plasma-config.sh` snapshot/diff on a test box; only the switch ships — the
+  `AccentColor` / `Decoration*` values Plasma writes are derived from the wallpaper at runtime.
+- Shipped via the `/etc/xdg` cascade (reaches existing users too; a user's own choice wins). Verified the
+  cascade is honoured for this key, unlike the colour scheme: with the key absent from `~/.config/kdeglobals`
+  and plasmashell restarted, each wallpaper change recomputed `AccentColor`.
+- Testing trap: `kwriteconfig6 --delete` writes a `key[$d]` marker that masks the cascade value; strip the
+  line instead when testing.
+
+### Files Modified
+- `etc/xdg/kdeglobals` (new)
+- `CLAUDE.md`
+
 ## 2026.06.24 — Make Plasma Wayland follow the installer keyboard layout (AZERTY fix, part 2/2)
 
 ### What Changed
